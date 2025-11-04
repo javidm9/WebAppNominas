@@ -1,7 +1,6 @@
 package mvc.controller;
 
 import mvc.model.entity.Empleado;
-import mvc.model.repository.EmpleadoRepository;
 import mvc.model.repository.RepositoryException;
 import mvc.model.service.EmpleadoService;
 
@@ -14,15 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
-//Implememtación del servlet
 @WebServlet("/EmpleadoController")
 public class EmpleadoController extends HttpServlet {
-    //identificador de versión de serialización de una clase para controlar las versiones
     private static final long serialVersionUID = 1L;
 
     public EmpleadoController() {
-
+        super();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,13 +31,20 @@ public class EmpleadoController extends HttpServlet {
         try {
             switch (option) {
                 case "listarEmpleados":
-                    List<Empleado> listaEmpleados = EmpleadoRepository.findAll();
-                    request.setAttribute("listaEmpleados", listaEmpleados);
-                    rd =  request.getRequestDispatcher("/WEB-INF/listarEmpleados.jsp");
+
+                    List<Empleado> listaEmpleados = EmpleadoService.findAll();
+
+                    request.setAttribute("listaDeEmpleados", listaEmpleados);
+
+                    rd = request.getRequestDispatcher("/listarEmpleados.jsp");
                     break;
-                case "default":rd = request.getRequestDispatcher("/WEB-INF/listarEmpleados.jsp");
+                case "default":
+                default:
+
+                    rd = request.getRequestDispatcher("/index.jsp");
+                    break;
             }
-        }catch (RepositoryException e){
+        } catch (RepositoryException e) {
             e.printStackTrace();
             throw new ServletException("Error en la capa de repositorio: " + e.getMessage());
         }
@@ -50,10 +53,9 @@ public class EmpleadoController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
         doGet(request, response);
     }
-
+}
 //    private void findAllCustomers(HttpServletRequest request, HttpServletResponse response)
 //            throws ServletException, IOException {
 //        List<Empleado> list;
@@ -70,4 +72,4 @@ public class EmpleadoController extends HttpServlet {
 //            rd.forward(request, response);
 //        }
 //    }
-}
+

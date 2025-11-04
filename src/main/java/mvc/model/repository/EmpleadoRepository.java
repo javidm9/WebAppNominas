@@ -3,6 +3,8 @@ package mvc.model.repository;
 import mvc.model.entity.Empleado;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,30 +16,23 @@ public class EmpleadoRepository {
     public static List<Empleado> findAll() throws RepositoryException {
         List<Empleado> empleados = new ArrayList<>();
 
-        try {
-            Connection conn = DBUtils.getConnection();
-            java.sql.PreparedStatement stm = conn.prepareStatement(SELECT_ALL);
-            java.sql.ResultSet rs = stm.executeQuery();
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement stm = conn.prepareStatement(SELECT_ALL);
+             ResultSet rs = stm.executeQuery()) {
+
             while (rs != null && rs.next()) {
                 Empleado empleado = new Empleado();
-
-                String nombre = rs.getString("NOMBRE");
-                String dni = rs.getString("DNI");
-                String sexoStr = rs.getString("SEXO");
-                int categoria = rs.getInt("CATEGORIA");
-                int anyos = rs.getInt("ANYOS");
-                empleado.setNombre(nombre);
-                empleado.setDni(dni);
-                empleado.setSexo(sexoStr.charAt(0));
-                empleado.setCategoria(categoria);
-                empleado.setAnyos(anyos);
-
+                empleado.setNombre(rs.getString("NOMBRE"));
+                empleado.setDni(rs.getString("DNI"));
+                empleado.setSexo(rs.getString("SEXO").charAt(0));
+                empleado.setCategoria(rs.getInt("CATEGORIA"));
+                empleado.setAnyos(rs.getInt("ANYOS"));
                 empleados.add(empleado);
             }
             return empleados;
 
         } catch (SQLException e) {
-            throw new RepositoryException(e.getMessage());
+            throw new RepositoryException("Error en findAll: " + e.getMessage());
         }
     }
 }

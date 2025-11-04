@@ -10,15 +10,16 @@
 <nav>
     <ul>
         <li>
-            <%--
-              Este enlace llama a tu servlet (EmpleadoController)
-              y le pasa el parámetro "option=listar".
-            --%>
             <a href="EmpleadoController?option=listarEmpleados">
-                Mostrar Información de Empleados
+                Mostrar información de los empleados
             </a>
         </li>
 
+        <li>
+            <a href="buscarSalario.jsp">
+                Mostrar salario de un empleado
+            </a>
+        </li>
     </ul>
 </nav>
 
