@@ -12,7 +12,7 @@
     <input type="hidden" name="option" value="calcularSalario">
 
     <label for="dni">Introduce el DNI del empleado:</label>
-    <input type="text" id="dni" name="dni">
+    <input type="text" id="dni" name="dni" required>
 
     <input type="submit" value="Buscar Salario">
 </form>

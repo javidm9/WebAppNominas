@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/EmpleadoController")
 public class EmpleadoController extends HttpServlet {
@@ -24,6 +25,8 @@ public class EmpleadoController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String option = request.getParameter("option");
         RequestDispatcher rd = null;
+
+        System.out.println("--- OPCIÓN RECIBIDA POR EL SERVLET: '" + option + "' ---");
 
         if (option == null) {
             option = "default";
@@ -38,6 +41,37 @@ public class EmpleadoController extends HttpServlet {
 
                     rd = request.getRequestDispatcher("/listarEmpleados.jsp");
                     break;
+
+                case "calcularSalario":
+                    try {
+                        String dni = request.getParameter("dni");
+                        Optional<Empleado> Empleado = EmpleadoService.findByDni(dni);
+
+                        if (Empleado.isPresent()) {
+                            Empleado empleado = Empleado.get();
+                            double salario = EmpleadoService.calcularSueldo(empleado);
+                            request.setAttribute("dniConsultado", dni);
+                            request.setAttribute("salarioCalculado", salario);
+                            rd = request.getRequestDispatcher("/mostrarSalario.jsp");
+
+                        } else {
+                            throw new Exception("Empleado no encontrado con DNI: " + dni);
+                        }
+
+                    } catch (Exception e) {
+                        request.setAttribute("error", e.getMessage());
+                        rd = request.getRequestDispatcher("/error.jsp");
+                    }
+                    break;
+
+                case "buscarEmpleados":
+
+                    String filtro = request.getParameter("filtro");
+                    List<Empleado> empleadosEncontrados = EmpleadoService.buscarPorFiltro(filtro);
+                    request.setAttribute("listaResultados", empleadosEncontrados);
+                    rd = request.getRequestDispatcher("/resultadoBusqueda.jsp");
+                    break;
+
                 case "default":
                 default:
 
@@ -51,25 +85,9 @@ public class EmpleadoController extends HttpServlet {
         rd.forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 }
-//    private void findAllCustomers(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        List<Empleado> list;
-//        try {
-//            list = EmpleadoService.findAll();
-//            request.setAttribute("customerList", list);
-//            RequestDispatcher rd = request.getRequestDispatcher("find-all.jsp");
-//            rd.forward(request, response);
-//        } catch (RepositoryException e) {
-//            // Imprimimos el detalle en la consola
-//            e.printStackTrace();
-//            request.setAttribute("error", "Se produjo un error al acceder al repositorio de datos");
-//            RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
-//            rd.forward(request, response);
-//        }
-//    }
+
 

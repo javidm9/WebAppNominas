@@ -20,6 +20,12 @@
                 Mostrar salario de un empleado
             </a>
         </li>
+
+        <li>
+            <a href="buscarEmpleado.jsp">
+                Modificar datos de un empleado
+            </a>
+        </li>
     </ul>
 </nav>
 

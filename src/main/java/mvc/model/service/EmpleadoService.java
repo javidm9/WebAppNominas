@@ -34,4 +34,8 @@ public class EmpleadoService {
     public static void updateEmpleado(Empleado empleado) throws RepositoryException {
         EmpleadoRepository.updateEmpleado(empleado);
     }
+
+    public static List<Empleado> buscarPorFiltro(String filtro) throws RepositoryException {
+        return EmpleadoRepository.findByFiltro(filtro);
+    }
 }
