@@ -14,6 +14,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+
+//Patrón: Front Controller (Controlador Frontal).
+//Este servlet implementa el patrón Front Controller.
+//Actúa como un único punto de entrada para todas las peticiones relacionadas con los empleados.
+//Utiliza el parámetro "option" y un 'switch' para redirigir internamente la petición a la lógica de negocio correspondiente.
+
+
 @WebServlet("/EmpleadoController")
 public class EmpleadoController extends HttpServlet {
     private static final long serialVersionUID = 1L;

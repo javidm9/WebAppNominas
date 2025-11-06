@@ -8,14 +8,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+
+//  Patrón: Data Access Object (DAO) / Repositorio.
+//  Esta clase implementa el patrón DAO (Data Access Object), como un patrón de J2EE(Java2 Enterprise Edition).
+//  Su única responsabilidad es encapsular el acceso a la base de datos para la entidad 'Empleado'.
+//  Oculta toda la lógica SQL (SELECT, UPDATE, etc.) y la gestión de conexiones (usando DBUtils) al resto de la aplicación.
+
+
 public class EmpleadoRepository {
 
     private static final String SELECT_ALL = "SELECT * FROM empleados";
     private static final String SELECT_BY_DNI = "SELECT * FROM empleados WHERE DNI = ?";
     private static final String UPDATE_BY_DNI = "UPDATE empleados SET NOMBRE = ?, SEXO = ?, CATEGORIA = ?, ANYOS = ? WHERE DNI = ?";
     private static final String SELECT_BY_FILTRO = "SELECT * FROM empleados WHERE DNI = ? OR NOMBRE LIKE ?";
-
-    // En EmpleadoRepository.java
 
     public static List<Empleado> findAll() throws RepositoryException {
         List<Empleado> empleados = new ArrayList<>();
@@ -39,7 +44,7 @@ public class EmpleadoRepository {
             return empleados;
 
         } catch (SQLException e) {
-            // Aquí es donde se originó el "Before start of result set"
+
             throw new RepositoryException("Error en findAll: " + e.getMessage());
         }
     }

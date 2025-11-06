@@ -14,7 +14,7 @@
     <input type="hidden" name="option" value="buscarEmpleados">
 
     <label for="filtro">Criterio de búsqueda:</label>
-    <%-- El 'name' ahora es "filtro" --%>
+
     <input type="text" id="filtro" name="filtro" required>
 
     <input type="submit" value="Buscar">

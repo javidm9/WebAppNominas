@@ -8,6 +8,13 @@ import mvc.model.repository.RepositoryException;
 import mvc.model.entity.Empleado;
 
 
+//  Patrón: Facade (Fachada).
+//  Esta clase implementa el patrón Facade.
+//  Actúa como una "fachada" o interfaz simple que oculta la complejidad de la
+//  lógica de negocio (calcularSueldo) y el acceso a datos (los métodos del Repositorio).
+//  El Controlador solo habla con esta fachada, no directamente con el Repositorio.
+
+
 public class EmpleadoService {
 
     private static final double SUELDO_BASE = 50000.0;
