@@ -1,0 +1,4 @@
+mvc.controller
+mvc.model.entity
+mvc.model.repository
+mvc.model.service

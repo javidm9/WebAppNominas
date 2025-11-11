@@ -9,12 +9,12 @@ import java.sql.SQLException;
 import java.util.*;
 
 
-//  Patrón: Data Access Object (DAO) / Repositorio.
-//  Esta clase implementa el patrón DAO (Data Access Object), como un patrón de J2EE(Java2 Enterprise Edition).
-//  Su única responsabilidad es encapsular el acceso a la base de datos para la entidad 'Empleado'.
-//  Oculta toda la lógica SQL (SELECT, UPDATE, etc.) y la gestión de conexiones (usando DBUtils) al resto de la aplicación.
-
-
+/**
+ * Patrón: Data Access Object (DAO) / Repositorio.
+ * Esta clase implementa el patrón DAO (Data Access Object), como un patrón de J2EE(Java2 Enterprise Edition).
+ * Su única responsabilidad es encapsular el acceso a la base de datos para la entidad 'Empleado'.
+ * Oculta toda la lógica SQL (SELECT, UPDATE, etc.) y la gestión de conexiones (usando DBUtils) al resto de la aplicación.
+ */
 public class EmpleadoRepository {
 
     private static final String SELECT_ALL = "SELECT * FROM empleados";
@@ -22,9 +22,16 @@ public class EmpleadoRepository {
     private static final String UPDATE_BY_DNI = "UPDATE empleados SET NOMBRE = ?, SEXO = ?, CATEGORIA = ?, ANYOS = ? WHERE DNI = ?";
     private static final String SELECT_BY_FILTRO = "SELECT * FROM empleados WHERE DNI = ? OR NOMBRE LIKE ?";
 
+    /**
+     * Obtiene una lista con todos los empleados de la base de datos.
+     *
+     * @return una Lista de objetos Empleado (puede estar vacía).
+     * @throws RepositoryException si ocurre un error de SQL durante la consulta.
+     */
     public static List<Empleado> findAll() throws RepositoryException {
         List<Empleado> empleados = new ArrayList<>();
 
+        // try-with-resources cierra automáticamente la conexión, statement y resultset.
         try (Connection conn = DBUtils.getConnection();
              PreparedStatement stm = conn.prepareStatement(SELECT_ALL);
              ResultSet rs = stm.executeQuery()) {
@@ -49,6 +56,13 @@ public class EmpleadoRepository {
         }
     }
 
+    /**
+     * Busca un empleado por su DNI (clave primaria).
+     *
+     * @param dni El DNI del empleado a buscar.
+     * @return un Optional<Empleado> (vacío si no se encuentra, o con el empleado si se encuentra).
+     * @throws RepositoryException si ocurre un error de SQL.
+     */
     public static Optional<Empleado> findByDni(String dni) throws RepositoryException {
 
         try (Connection conn = DBUtils.getConnection();
@@ -74,6 +88,12 @@ public class EmpleadoRepository {
         }
     }
 
+    /**
+     * Actualiza un empleado existente en la base de datos.
+     *
+     * @param empleado El objeto Empleado con los datos a actualizar.
+     * @throws RepositoryException si la actualización falla o no se actualiza ninguna fila.
+     */
     public static void updateEmpleado(Empleado empleado) throws RepositoryException {
 
         try (Connection conn = DBUtils.getConnection();
@@ -95,6 +115,13 @@ public class EmpleadoRepository {
         }
     }
 
+    /**
+     * Busca empleados cuyo DNI coincida exactamente o cuyo nombre contenga el filtro.
+     *
+     * @param filtro El DNI o parte del nombre a buscar.
+     * @return Una lista de empleados (puede estar vacía).
+     * @throws RepositoryException Si hay un error de SQL.
+     */
     public static List<Empleado> findByFiltro(String filtro) throws RepositoryException {
         List<Empleado> empleados = new ArrayList<>();
 

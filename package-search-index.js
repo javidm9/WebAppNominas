@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"mvc.controller"},{"l":"mvc.model.entity"},{"l":"mvc.model.repository"},{"l":"mvc.model.service"}];updateSearchResults();

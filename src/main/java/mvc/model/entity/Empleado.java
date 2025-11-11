@@ -1,5 +1,11 @@
 package mvc.model.entity;
 
+/**
+ * Patrón: JavaBean / POJO / Entidad.
+ * Representa la entidad "Empleado". Es un objeto contenedor de datos (DTO)
+ * que se utiliza para mover información entre las capas (Repository, Service,
+ * Controller y JSP).
+ */
 public class Empleado {
 
     private String nombre;
@@ -8,10 +14,23 @@ public class Empleado {
     private int categoria;
     private int anyos;
 
+    /**
+     * Constructor vacío (default).
+     * Requerido por el estándar JavaBean.
+     */
     public Empleado() {
 
     }
 
+    /**
+     * Constructor con todos los campos.
+     *
+     * @param nombre    Nombre del empleado.
+     * @param dni       DNI del empleado (clave primaria).
+     * @param sexo      Sexo (H/M).
+     * @param categoria Categoría profesional.
+     * @param anyos     Años de antigüedad.
+     */
     public Empleado(String nombre, String dni, char sexo, int categoria, int anyos) {
         this.nombre = nombre;
         this.dni = dni;
@@ -20,46 +39,90 @@ public class Empleado {
         this.anyos = anyos;
     }
 
+    /**
+     * Obtiene el nombre del empleado.
+     * @return el nombre del empleado.
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Establece el nombre del empleado.
+     * @param nombre el nuevo nombre del empleado.
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Obtiene el DNI del empleado.
+     * @return el DNI del empleado.
+     */
     public String getDni() {
         return dni;
     }
 
+    /**
+     * Establece el DNI del empleado.
+     * @param dni el nuevo DNI del empleado.
+     */
     public void setDni(String dni) {
         this.dni = dni;
     }
 
+    /**
+     * Obtiene el sexo del empleado.
+     * @return el sexo (char) del empleado.
+     */
     public char getSexo() {
         return sexo;
     }
 
+    /**
+     * Establece el sexo del empleado.
+     * @param sexo el nuevo sexo (char) del empleado.
+     */
     public void setSexo(char sexo) {
         this.sexo = sexo;
     }
 
+    /**
+     * Obtiene la categoría profesional del empleado.
+     * @return la categoría (int) del empleado.
+     */
     public int getCategoria() {
         return categoria;
     }
 
+    /**
+     * Establece la categoría profesional del empleado.
+     * @param categoria la nueva categoría (int) del empleado.
+     */
     public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
 
+    /**
+     * Obtiene los años de antigüedad del empleado.
+     * @return los años (int) de antigüedad.
+     */
     public int getAnyos() {
         return anyos;
     }
 
+    /**
+     * Establece los años de antigüedad del empleado.
+     * @param anyos los nuevos años (int) de antigüedad.
+     */
     public void setAnyos(int anyos) {
         this.anyos = anyos;
     }
 
+    /**
+     * Devuelve una representación en String del objeto, útil para depuración.
+     * @return una cadena con los datos del empleado.
+     */
     @Override
     public String toString() {
         return "Empleado{" +

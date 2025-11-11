@@ -15,20 +15,35 @@ import java.util.List;
 import java.util.Optional;
 
 
-//Patrón: Front Controller (Controlador Frontal).
-//Este servlet implementa el patrón Front Controller.
-//Actúa como un único punto de entrada para todas las peticiones relacionadas con los empleados.
-//Utiliza el parámetro "option" y un 'switch' para redirigir internamente la petición a la lógica de negocio correspondiente.
-
-
+/**
+ * Patrón: Front Controller (Controlador Frontal).
+ * Este servlet implementa el patrón Front Controller.
+ * Actúa como un único punto de entrada para todas las peticiones relacionadas con los empleados.
+ * Utiliza el parámetro "option" y un 'switch' para redirigir internamente la petición
+ * a la lógica de negocio correspondiente.
+ */
 @WebServlet("/EmpleadoController")
 public class EmpleadoController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constructor por defecto del servlet.
+     * @see HttpServlet#HttpServlet()
+     */
     public EmpleadoController() {
         super();
     }
 
+    /**
+     * Maneja las peticiones HTTP GET.
+     * Lee el parámetro "option" para determinar la acción a ejecutar
+     * (listar, calcular salario, etc.).
+     *
+     * @param request  El objeto HttpServletRequest que contiene la petición del cliente.
+     * @param response El objeto HttpServletResponse que se enviará al cliente.
+     * @throws ServletException Si ocurre un error específico del servlet.
+     * @throws IOException      Si ocurre un error de entrada/salida.
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String option = request.getParameter("option");
         RequestDispatcher rd = null;
@@ -92,9 +107,16 @@ public class EmpleadoController extends HttpServlet {
         rd.forward(request, response);
     }
 
+    /**
+     * Maneja las peticiones HTTP POST.
+     * Actualmente, redirige toda la lógica al método doGet.
+     *
+     * @param request  El objeto HttpServletRequest que contiene la petición del cliente.
+     * @param response El objeto HttpServletResponse que se enviará al cliente.
+     * @throws ServletException Si ocurre un error específico del servlet.
+     * @throws IOException      Si ocurre un error de entrada/salida.
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 }
-
-
