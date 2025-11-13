@@ -1,11 +1,6 @@
 package mvc.model.entity;
 
-/**
- * Patrón: JavaBean / POJO / Entidad.
- * Representa la entidad "Empleado". Es un objeto contenedor de datos (DTO)
- * que se utiliza para mover información entre las capas (Repository, Service,
- * Controller y JSP).
- */
+
 public class Empleado {
 
     private String nombre;
@@ -16,7 +11,6 @@ public class Empleado {
 
     /**
      * Constructor vacío (default).
-     * Requerido por el estándar JavaBean.
      */
     public Empleado() {
 
