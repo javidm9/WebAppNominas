@@ -6,28 +6,11 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- * Patrón: Object Pool (Piscina de Objetos) y Singleton.
- *
- * Esta clase de utilidad gestiona la conexión a la base de datos.
- * Utiliza un pool de conexiones (BasicDataSource) para implementar
- * el patrón Object Pool. En lugar de crear una conexión (un objeto costoso)
- * para cada petición, gestiona una "piscina" de conexiones listas para ser
- * reutilizadas.
- **/
-
 public class DBUtils {
 
-    /**
-     * Instancia única del pool de conexiones (Singleton).
-     */
     private static BasicDataSource dataSource = null;
 
-    /**
-     * Implementa el patrón Singleton (lazy loading) para el pool.
-     * Configura y devuelve el pool de conexiones (DataSource) la primera vez
-     * que se solicita.
-     *
+    /*
      * @return El DataSource (pool) configurado.
      */
     private static DataSource getDataSource() {

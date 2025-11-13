@@ -15,6 +15,7 @@ import java.util.*;
  * Su única responsabilidad es encapsular el acceso a la base de datos para la entidad 'Empleado'.
  * Oculta toda la lógica SQL (SELECT, UPDATE, etc.) y la gestión de conexiones (usando DBUtils) al resto de la aplicación.
  */
+
 public class EmpleadoRepository {
 
     private static final String SELECT_ALL = "SELECT * FROM empleados";
